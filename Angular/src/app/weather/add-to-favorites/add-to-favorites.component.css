@@ -1,0 +1,8 @@
+.favorites-container img {
+    width: 5vw;
+}
+
+.favorites-container button {
+    width: 10vw;
+    font-size: 1.2vw;
+}

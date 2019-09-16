@@ -1,0 +1,18 @@
+<div class="container-fluid m-0 p-0 mx-auto">
+    <div id="favorites" class="card-columns pt-4 mt-4 text-center">
+        <div *ngFor="let f of favorites" class="card border-primary text-purple">
+            <div class="card-header bg-purple">
+                <span (click)="removeFavorite(f.name)" class="text-danger delete" title="Remove">X</span>
+                <img [src]="getWeatherIcon(f.currentWeather.WeatherIcon)">
+            </div>
+            <ul (click)="openInMain(f)" title="Show More Details" class="list-group list-group-flush p-0 m-0">
+                <li class="list-group-item bg-light">{{f.name}}&deg;</li>
+                <li class="list-group-item bg-light">{{f.currentWeather.Temperature.Metric.Value}}&deg;</li>
+                <li class="list-group-item bg-light">{{f.currentWeather.WeatherText}}</li>
+            </ul>
+        </div>
+    </div>
+    <div *ngIf="errorMessage.length > 0">
+        <herolo-error-message-model (isClose)='errorMessage = ""' [message]="errorMessage"></herolo-error-message-model>
+    </div>
+</div>

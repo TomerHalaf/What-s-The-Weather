@@ -1,0 +1,18 @@
+<div class="modal-dialog" id="errorModel" (blur)="close()" tabindex="1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-red" id="errorModalLabel">Error</h5>
+                <button type="button" (click)="close()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{message}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="close()" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

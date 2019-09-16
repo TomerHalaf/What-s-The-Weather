@@ -1,0 +1,11 @@
+<div *ngIf="pageLoaded" id="currentWeatherWrapper">
+    <h1 class="text-purple">{{cityConditions.WeatherText}}</h1>
+    <img src="{{weatherIcon}}" alt="">
+    <div class="content text-purple">
+        <p>{{cityName}}</p>
+        <p>{{cityConditions.Temperature.Metric.Value}}&deg;</p>
+    </div>
+    <div *ngIf="errorMessage.length > 0">
+        <herolo-error-message-model (isClose)='errorMessage = ""' [message]="errorMessage"></herolo-error-message-model>
+    </div>
+</div>

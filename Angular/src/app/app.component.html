@@ -1,0 +1,9 @@
+<header>
+    <herolo-header></herolo-header>
+</header>
+<main>
+    <router-outlet></router-outlet>
+</main>
+<div class="error-container" *ngIf="errorMessage.length > 0">
+    <herolo-error-message-model (isClose)='errorMessage = ""' [message]="errorMessage"></herolo-error-message-model>
+</div>

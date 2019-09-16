@@ -1,0 +1,12 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.text-purple {
+    color: #915abe;
+}
+
+.bg-purple {
+    background: #e4d8ee;
+}

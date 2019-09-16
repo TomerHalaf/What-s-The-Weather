@@ -1,0 +1,35 @@
+#currentWeatherWrapper {
+    position:relative;
+    width: 100%;
+    height:auto;
+    margin: auto;
+    text-align:center;
+}
+
+h1{
+    font-size: 1.8vw;
+}
+
+img{
+    width: 100%;
+}
+.content{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left:0;
+    right:0;
+    bottom:0;
+    height:20%;
+}
+p{
+    padding: 1px;
+    margin: 0;
+    font-size: 1.7vw;
+    font-weight: 600;
+}
+@media screen and (min-width: 768px) {
+    p {
+        font-size: 1.2vw;
+    }
+}

@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <herolo-city-search [searchInput]="cityName" (selectedCity)="setCity($event)"></herolo-city-search>
+        </div>
+    </div>
+    <div *ngIf="city!=null" class="row m-4 p-4">
+        <div class="col-5 col-md-3">
+            <herolo-current-weather [cityName]="city.LocalizedName" [locationKey]="city.Key">
+            </herolo-current-weather>
+        </div>
+        <div class="col-7 col-md-9">
+            <herolo-add-to-favorites [cityName]="city.LocalizedName" [locationKey]="city.Key"></herolo-add-to-favorites>
+        </div>
+    </div>
+    <div *ngIf="city!=null" class="row">
+        <div class="col-12">
+            <herolo-daily-forecasts [locationKey]="city.Key"></herolo-daily-forecasts>
+        </div>
+    </div>
+</div>
