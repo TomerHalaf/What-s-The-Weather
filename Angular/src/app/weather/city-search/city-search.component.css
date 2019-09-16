@@ -22,7 +22,7 @@ li:hover {
     background-color: #e4d8ee;
 }
 input{
-    background-image: url("/assets/images/Search_icon-72a7cf.svg");
+    background-image: url("./assets/images/Search_icon-72a7cf.svg");
     background-repeat: no-repeat;
     background-size: 40px;
 }

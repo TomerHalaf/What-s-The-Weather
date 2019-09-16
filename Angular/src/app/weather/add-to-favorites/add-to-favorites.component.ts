@@ -39,9 +39,9 @@ export class AddToFavoritesComponent implements OnInit, OnChanges {
 
     private setFavoritesIconSrc() {
         if (this.getFavoriteIndex() > -1) {
-            this.favoritesIconSrc = "/assets/images/favorites-colored.svg";
+            this.favoritesIconSrc = "./assets/images/favorites-colored.svg";
         } else {
-            this.favoritesIconSrc = "/assets/images/favorites-grey.svg";
+            this.favoritesIconSrc = "./assets/images/favorites-grey.svg";
         }
     }
 

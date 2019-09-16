@@ -11,7 +11,7 @@ export class WeatherService {
     autocompletePath: string = "locations/v1/cities/autocomplete";
     cityConditionsPath: string = "currentconditions/v1/"
     dailyForecastsPath: string = "forecasts/v1/daily/5day/"
-    private apiKey = "DHIVAJuAZGKu9jeiHzGYoNk8ES7TTp9G";
+    private apiKey = "CkND2RH0il3H5d0AAdCqb1SH1M7aDnPe";
 
     constructor(private httpService: HttpClient) { }
 
