@@ -7,7 +7,7 @@ import { ForecastsModel } from '../models/forecasts.model';
 
 @Injectable()
 export class WeatherService {
-    apiHttp: string = "http://dataservice.accuweather.com/"
+    apiHttp: string = "https://dataservice.accuweather.com/"
     autocompletePath: string = "locations/v1/cities/autocomplete";
     cityConditionsPath: string = "currentconditions/v1/"
     dailyForecastsPath: string = "forecasts/v1/daily/5day/"
