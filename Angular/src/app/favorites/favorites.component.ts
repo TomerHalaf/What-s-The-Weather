@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./favorites.component.css']
 })
 export class FavoritesComponent implements OnInit {
-    private favorites: Favorite[] = [];
+    public favorites: Favorite[] = [];
     private iconSite: string = "https://developer.accuweather.com/sites/default/files/";
     public errorMessage: string = "";
 

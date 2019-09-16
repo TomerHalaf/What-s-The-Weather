@@ -17,7 +17,7 @@ export class ErrorMessageModelComponent implements OnInit {
         errorModelElement.focus();
     }
 
-    private close(){
+    public close(){
         this.isClose.emit(true);
     }
 
