@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '@herolo/shared/services/weather.service';
-import { first } from 'rxjs/operators';
+import { first, catchError } from 'rxjs/operators';
 import { Favorite } from '@herolo/shared/models/favorite.model';
 import { Router } from '@angular/router';
 
@@ -30,10 +30,17 @@ export class FavoritesComponent implements OnInit {
         }
         this.favorites.forEach(favorite => {
             this.weatherService.getCityConditions(favorite.id)
-                .pipe(first())
+                .pipe(
+                    first())
                 .subscribe(currentWeather => {
                     favorite.currentWeather = currentWeather[0];
-                }, err => this.errorMessage = `Error Code: ${err.Code} Message: ${err.Message}`);
+                }, err => {
+                    if (err.Code != undefined) {
+                        this.errorMessage = `Error Code: ${err.Code} Message: ${err.Message}`;
+                    } else {
+                        this.errorMessage = "Server request error";
+                    }
+                });
         });
     }
 

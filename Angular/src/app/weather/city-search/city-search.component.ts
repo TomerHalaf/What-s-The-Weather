@@ -63,7 +63,13 @@ export class CitySearchComponent implements OnInit {
                         localStorage.setItem("previous searches", JSON.stringify(this.previousSearches));
                     } catch (error) {}
                     this.isVisible = true;
-                }, err => this.errorMessage = `Error Code: ${err.Code} Message: ${err.Message}`);
+                }, err => {
+                    if (err.Code != undefined) {
+                        this.errorMessage = `Error Code: ${err.Code} Message: ${err.Message}`;
+                    } else {
+                        this.errorMessage = "Server request error";
+                    }
+                });
         }
     }
 

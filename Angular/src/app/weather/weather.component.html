@@ -4,7 +4,7 @@
             <herolo-city-search [searchInput]="cityName" (selectedCity)="setCity($event)"></herolo-city-search>
         </div>
     </div>
-    <div *ngIf="city!=null" class="row m-4 p-4">
+    <div *ngIf="city!=null" class="row mt-5 pt-5 m-md-4 p-md-4">
         <div class="col-5 col-md-3">
             <herolo-current-weather [cityName]="city.LocalizedName" [locationKey]="city.Key">
             </herolo-current-weather>

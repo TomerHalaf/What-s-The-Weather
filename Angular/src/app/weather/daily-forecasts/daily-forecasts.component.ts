@@ -30,7 +30,13 @@ export class DailyForecastsComponent implements OnInit, OnChanges {
             .subscribe(forcasts => {
                 this.forecasts = forcasts;
                 this.isVisible = true;
-            }, err => this.errorMessage = `Error Code: ${err.Code} Message: ${err.Message}`);
+            }, err => {
+                if (err.Code != undefined) {
+                    this.errorMessage = `Error Code: ${err.Code} Message: ${err.Message}`;
+                } else {
+                    this.errorMessage = "Server request error";
+                }
+            });
     }
 
     public getDayName(dateString: string): string {
