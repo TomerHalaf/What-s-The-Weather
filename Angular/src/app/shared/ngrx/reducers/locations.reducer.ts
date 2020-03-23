@@ -18,21 +18,18 @@ export const locationsReducer = createReducer(initialState,
         return ({ ...state, locations })
     }),
     on(locationsActions.updateLocationSuccess, (state, action) => {
-        console.log("updateLocationSuccess", action);
         let locations = state.locations.map(location => 
             location.details.Key === action.location.details.Key ? action.location : location);
         HtmlApisHelper.setLocalStorage("locations", locations);
         return ({ ...state, locations });
     }),
     on(locationsActions.updateLocationCurrentConditionsSuccess, (state, action) => {
-        console.log("updateLocationCurrentConditionsSuccess", action);
         let locations = state.locations.map(location => 
             location.details.Key === action.locationKey ? { ...location, currentConditions: action.currentConditions } : location);
         HtmlApisHelper.setLocalStorage("locations", locations);
         return ({ ...state, locations });
     }),
     on(locationsActions.updateLocationDailyForcastsSuccess, (state, action) => {
-        console.log("updateLocationDailyForcastsSuccess", action);
         let locations = state.locations.map(location => 
             location.details.Key === action.locationKey ? { ...location, dailyForcasts: action.dailyForcasts } : location);
         HtmlApisHelper.setLocalStorage("locations", locations);
