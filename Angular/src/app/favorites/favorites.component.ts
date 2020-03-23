@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Favorite } from '@models/favorite.model';
-// import { updateAllFavorites, removeFavorite } from '@wtw/shared/ngrx/actions/favorites.actions';
 import { State } from '@store/index';
 import { selectFavorites } from '@store/selectors/favorites.selectors';
 import { addRemoveFavorite } from '@store/actions/favorites.actions';

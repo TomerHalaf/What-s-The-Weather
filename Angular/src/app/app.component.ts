@@ -7,7 +7,7 @@ import { HtmlApisHelper } from './shared/helpers/html-apis.helper';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = 'Herolo';
+    title = `What's The Weather`;
     public errorMessage: string[] = [];
 
     constructor() {

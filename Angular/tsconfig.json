@@ -3,7 +3,12 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-        "@herolo/*": ["app/*"]
+        "@services/*": ["app/shared/services/*"],
+        "@models/*": ["app/shared/models/*"],
+        "@helpers/*": ["app/shared/helpers/*"],
+        "@store/*": ["app/shared/ngrx/*"],
+        "@pipes/*": ["app/shared/pipes/*"],
+        "@wtw/*": ["app/*"]
     },
     "downlevelIteration": true,
     "importHelpers": true,
@@ -19,7 +24,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2020",
       "dom"
     ]
   }

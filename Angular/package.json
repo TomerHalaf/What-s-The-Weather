@@ -1,5 +1,5 @@
 {
-  "name": "herolo",
+  "name": "wtw",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,6 +19,10 @@
     "@angular/platform-browser": "^8.2.5",
     "@angular/platform-browser-dynamic": "^8.2.5",
     "@angular/router": "^8.2.5",
+    "@ngrx/data": "^8.3.0",
+    "@ngrx/effects": "^8.3.0",
+    "@ngrx/router-store": "^8.4.0",
+    "@ngrx/store": "^8.3.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "jquery": "^3.4.1",
