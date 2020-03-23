@@ -1,21 +1,30 @@
 <div class="container-fluid">
+    <!-- Search for location -->
     <div class="row">
-        <div class="col-12">
-            <herolo-city-search [searchInput]="cityName" (selectedCity)="setCity($event)"></herolo-city-search>
+        <div class="col-12 col-md-4 order-1 order-md-2">
+            <wtw-location-search 
+                (search)="search($event)" (selectedResult)="selectResult($event)" [results]="searchResults$ | async">
+            </wtw-location-search>
+            <br>
+            <h1 *ngIf="(location$ | async)?.details?.LocalizedName as name" class="d-none d-md-block text-center pt-4 text-main">{{name}}</h1>
+        </div>
+        <div class="col-6 col-md-4 pt-4 p-md-0 order-1">
+            <div *ngIf="(location$ | async)?.currentConditions as currentConditions">
+                <wtw-current-weather 
+                    [currentConditions]="currentConditions">
+                </wtw-current-weather>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 pt-4 pr-md-4 p-md-1 order-3">
+            <wtw-add-to-favorites *ngIf="(location$ | async)?.details as locationDetails"
+                [isFavorite]="(isFavorite$ | async)" (buttonClicked)="addRemoveFavorite(locationDetails)">
+            </wtw-add-to-favorites>
         </div>
     </div>
-    <div *ngIf="city!=null" class="row mt-5 pt-5 m-md-4 p-md-4">
-        <div class="col-5 col-md-3">
-            <herolo-current-weather [cityName]="city.LocalizedName" [locationKey]="city.Key">
-            </herolo-current-weather>
-        </div>
-        <div class="col-7 col-md-9">
-            <herolo-add-to-favorites [cityName]="city.LocalizedName" [locationKey]="city.Key"></herolo-add-to-favorites>
-        </div>
-    </div>
-    <div *ngIf="city!=null" class="row">
+    <!-- show location conditions -->
+    <div *ngIf="(location$ | async)?.dailyForcasts as dailyForcasts">
         <div class="col-12">
-            <herolo-daily-forecasts [locationKey]="city.Key"></herolo-daily-forecasts>
+            <wtw-daily-forecasts [forecasts]="dailyForcasts"></wtw-daily-forecasts>
         </div>
     </div>
 </div>

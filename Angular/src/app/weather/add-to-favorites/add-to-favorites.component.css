@@ -1,8 +1,14 @@
+.favorites-container {
+    width: 100%;
+}
+
 .favorites-container img {
-    width: 5vw;
+    float: right;
+    width: 40px;
 }
 
 .favorites-container button {
-    width: 10vw;
-    font-size: 1.2vw;
+    width: 90px;
+    float: right;
+    font-size: 19px;
 }

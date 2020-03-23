@@ -1,69 +1,41 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Favorite } from '@herolo/shared/models/favorite.model';
-import { CityConditionsModel } from '@herolo/shared/models/city-conditions.model';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-    selector: 'herolo-add-to-favorites',
+    selector: 'wtw-add-to-favorites',
     templateUrl: './add-to-favorites.component.html',
     styleUrls: ['./add-to-favorites.component.css']
 })
-export class AddToFavoritesComponent implements OnInit, OnChanges {
-    @Input() cityName: string = "";
-    @Input() locationKey: string = "";
-    public favorites: Favorite[] = [];
-    public favoritesIconSrc: string;
+export class AddToFavoritesComponent {
+    @Input() isFavorite: boolean;
+    @Output() buttonClicked = new EventEmitter<void>();
 
-    constructor() { }
+    getFavoriteIcon(): string {
+        if (this.isFavorite) {
+            return './assets/images/favorites-colored.svg';
+        };
+        return './assets/images/favorites-grey.svg';
+    };
 
-    ngOnInit() {
-        this.initFavorites();
-        this.setFavoritesIconSrc();
-    }
-
-    ngOnChanges(changes) {
-        this.setFavoritesIconSrc();
-    }
-
-    private getFavoriteIndex(): number {
-        if (this.favorites != null && this.favorites != undefined) {
-            return this.favorites.findIndex(favorite => {
-                if (favorite.id == this.locationKey) {
-                    return true;
-                }
-                return false;
-            });
-        }
-        this.favorites = [];
-        return -1;
-    }
-
-    private setFavoritesIconSrc() {
-        if (this.getFavoriteIndex() > -1) {
-            this.favoritesIconSrc = "./assets/images/favorites-colored.svg";
-        } else {
-            this.favoritesIconSrc = "./assets/images/favorites-grey.svg";
-        }
-    }
-
-    private initFavorites() {
-        try {
-            this.favorites = JSON.parse(localStorage.getItem("favorites"));
-        } catch (error) { }
-        if (this.favorites == null || this.favorites == undefined) {
-            this.favorites = [];
-        }
-    }
-
-    public addToFavorites(): void {
-        let index = this.getFavoriteIndex();
-        if (index > -1) {
-            this.favorites.splice(index, 1);
-        } else {
-            this.favorites.push(new Favorite(this.locationKey, this.cityName, new CityConditionsModel()));
-        }
-        try {
-            localStorage.setItem("favorites", JSON.stringify(this.favorites));
-        } catch (error) { }
-        this.setFavoritesIconSrc();
-    }
+    // public favoriteClicked(): void {
+        // let index = this.getFavoriteIndex();
+        // index > -1 ? this.addToFavorites() : this.removeFromFavorites(index);
+        // if (HtmlApisHelper.isLocalStorage) {
+        //     localStorage.setItem('favorites', JSON.stringify(this.favorites));
+        // }
+        // this.setFavoritesIconSrc();
+    // }
+    // private addToFavorites(): void {
+    //     // this.s
+    //     // this.favorites.push(new Favorite(this.locationKey, this.cityName, new CityConditionsModel()));
+    // }
+    // private removeFromFavorites(index: number): void {
+    //     this.favorites.splice(index, 1);
+    // }
+    // private getFavoriteIndex(): number {
+    //     return this.favorites ? this.favorites.findIndex(favorite => favorite.id == this.locationKey) : -1;
+    // }
+    // private setFavoritesIconSrc() {
+    //     this.getFavoriteIndex() > -1 ? this.favoritesIconSrc = './assets/images/favorites-colored.svg' :
+    //         this.favoritesIconSrc = './assets/images/favorites-grey.svg';
+    // }
 }

@@ -1,0 +1,12 @@
+.search-form-container {
+    position: relative;
+}
+
+.search-bg {
+    height: 100%;
+    position: absolute;
+}
+
+.form-control {
+    color: #5aafbe;
+}

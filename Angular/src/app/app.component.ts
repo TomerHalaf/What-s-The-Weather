@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HtmlApisHelper } from './shared/helpers/html-apis.helper';
 
 @Component({
     selector: 'app-root',
@@ -7,15 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'Herolo';
-    public errorMessage: string = "";
+    public errorMessage: string[] = [];
 
     constructor() {
-        let test = "test"
-        try {
-            localStorage.setItem(test, test);
-            localStorage.removeItem(test);
-        } catch (error) {
-            this.errorMessage = "for best experience please enable localstorage";
+        if (!HtmlApisHelper.isLocalStorage) {
+            this.errorMessage = ["for best experience please enable localstorage"];
         }
     }
 }

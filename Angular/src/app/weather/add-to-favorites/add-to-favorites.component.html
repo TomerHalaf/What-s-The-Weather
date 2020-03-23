@@ -1,4 +1,4 @@
-<div class="favorites-container float-right pr-4">
-    <img [src]="favoritesIconSrc" alt="">
-    <button (click)="addToFavorites()" class="bg-purple">Favorites</button>
+<div class="favorites-container">
+    <button (click)="buttonClicked.emit()" class="bg-main">Favorites</button>
+    <img [src]="getFavoriteIcon()" alt="">
 </div>

@@ -1,0 +1,6 @@
+<ul *ngIf="results && results?.length > 0" class="text-center text-main border-main" id="search-results-container">
+    <li *ngFor="let result of results" class="bg-main-hover" (click)="onSelect(result)">{{result.LocalizedName}} ({{result.Country.LocalizedName}}, {{result.AdministrativeArea.LocalizedName}})</li>
+</ul>
+<ul *ngIf="!results || results?.length === 0" class="text-center" id="search-results-container">
+    <li class="bg-main-hover text-danger">No Results</li>
+</ul>

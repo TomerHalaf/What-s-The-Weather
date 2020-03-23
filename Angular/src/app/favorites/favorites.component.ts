@@ -1,65 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { WeatherService } from '@herolo/shared/services/weather.service';
-import { first, catchError } from 'rxjs/operators';
-import { Favorite } from '@herolo/shared/models/favorite.model';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Favorite } from '@models/favorite.model';
+// import { updateAllFavorites, removeFavorite } from '@wtw/shared/ngrx/actions/favorites.actions';
+import { State } from '@store/index';
+import { selectFavorites } from '@store/selectors/favorites.selectors';
+import { addRemoveFavorite } from '@store/actions/favorites.actions';
+import { selectLocation } from '@store/selectors/locations.selectors';
 
 @Component({
-    selector: 'herolo-favorites',
+    selector: 'wtw-favorites',
     templateUrl: './favorites.component.html',
     styleUrls: ['./favorites.component.css']
 })
-export class FavoritesComponent implements OnInit {
-    public favorites: Favorite[] = [];
-    private iconSite: string = "https://developer.accuweather.com/sites/default/files/";
-    public errorMessage: string = "";
+export class FavoritesComponent {
+    favorites$: Observable<Favorite[]>;
+    getLocation = (locationKey: string) => {
+        return this.store.pipe(selectLocation(locationKey));
+    };
 
-    constructor(private weatherService: WeatherService, private router: Router) { }
+    constructor(private store:Store<State>, private router: Router) {
+        this.favorites$ = this.store.select(selectFavorites);
+    };
 
-    ngOnInit() {
-        this.initFavorites();
-    }
+    removeFavorite(locationKey: string): void {
+        let favorite: Favorite = { locationKey, description: "" };
+        this.store.dispatch(addRemoveFavorite({ favorite }));
+    };
 
-    private initFavorites() {
-        this.favorites = [];
-        try {
-            this.favorites = JSON.parse(localStorage.getItem("favorites"));
-        } catch (error) { }
-        if (this.favorites == null || this.favorites == undefined) {
-            this.favorites = [];
-        }
-        this.favorites.forEach(favorite => {
-            this.weatherService.getCityConditions(favorite.id)
-                .pipe(
-                    first())
-                .subscribe(currentWeather => {
-                    favorite.currentWeather = currentWeather[0];
-                }, err => {
-                    if (err.Code != undefined) {
-                        this.errorMessage = `Error Code: ${err.Code} Message: ${err.Message}`;
-                    } else {
-                        this.errorMessage = "Server request error";
-                    }
-                });
-        });
-    }
-
-    public getWeatherIcon(weatherIcon: number): string {
-        return weatherIcon < 10 ? this.iconSite + "0" + weatherIcon + "-s.png" : this.iconSite + weatherIcon + "-s.png";
-    }
-
-    public removeFavorite(name: string) {
-        this.favorites = this.favorites.filter(favorite => {
-            return favorite.name != name;
-        });
-        try {
-            localStorage.setItem("favorites", JSON.stringify(this.favorites));
-        } catch (error) { }
-    }
-
-    public openInMain(favorite: Favorite) {
+    openInMain(favorite: Favorite): void {
         this.router.navigate(['home'], {
-            state: { city: favorite.name }
+            state: { locationKey: favorite.locationKey }
         });
-    }
+    };
 }

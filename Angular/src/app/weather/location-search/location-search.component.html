@@ -1,0 +1,8 @@
+<div class="search-container" (mouseover)="showResults = true" (mouseleave)="showResults = false">
+    <wtw-search-form *ngIf="newSearch" class="mx-auto"
+        [searchInput]="newSearch" (search)=search.emit($event)>
+    </wtw-search-form>
+    <wtw-search-results *ngIf="showResults && results" 
+        (selectedResult)="selectResult($event)" [results]="results.results">
+    </wtw-search-results>
+</div>

@@ -1,0 +1,9 @@
+li {
+    font-size: 24px;
+}
+
+.delete:hover,
+.delete:focus {
+    text-decoration: none;
+    cursor: pointer;
+}

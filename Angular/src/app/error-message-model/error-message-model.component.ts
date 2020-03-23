@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-    selector: 'herolo-error-message-model',
+    selector: 'wtw-error-message-model',
     templateUrl: './error-message-model.component.html',
     styleUrls: ['./error-message-model.component.css']
 })
 export class ErrorMessageModelComponent implements OnInit {
-    @Input() message: string;
+    @Input() messages: string[];
     @Output() isClose = new EventEmitter<boolean>();
 
     constructor() { }

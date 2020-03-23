@@ -3,10 +3,18 @@ body{
     padding: 0;
 }
 
-.text-purple {
-    color: #915abe;
+.text-main {
+    color: #5aafbe;
 }
 
-.bg-purple {
-    background: #e4d8ee;
+.bg-main {
+    background: #e5f6f5;
+}
+
+.bg-main-hover:hover {
+    background: #e5f6f5;
+}
+
+.border-main {
+    border: 1px solid #5aafbe;
 }

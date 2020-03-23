@@ -1,15 +1,12 @@
-<div *ngIf="isVisible" class="forecasts-container">
-    <h1 class="text-center text-purple">{{forecasts.Headline.Text}}</h1>
+<div *ngIf="forecasts" class="forecasts-container">
+    <h1 class="text-center text-main">{{forecasts.Headline.Text}}</h1>
     <div class="cards-container">
-        <div *ngFor="let df of forecasts.DailyForecasts" class="card text-purple">
+        <div *ngFor="let df of forecasts.DailyForecasts" class="card text-main">
             <div class="card-content">
-                <p>{{getDayName(df.Date)}}</p>
+                <p>{{df.Date | DayName}}</p>
                 <p>Min: {{df.Temperature.Minimum.Value}}&deg;{{df.Temperature.Minimum.Unit}}</p>
                 <p>Max: {{df.Temperature.Maximum.Value}}&deg;{{df.Temperature.Maximum.Unit}}</p>
             </div>
         </div>
-    </div>
-    <div *ngIf="errorMessage.length > 0">
-        <herolo-error-message-model (isClose)='errorMessage = ""' [message]="errorMessage"></herolo-error-message-model>
     </div>
 </div>

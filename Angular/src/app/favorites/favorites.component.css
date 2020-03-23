@@ -9,16 +9,6 @@
     column-gap: 20px;
 }
 
-li {
-    font-size: 24px;
-}
-
-.delete:hover,
-.delete:focus {
-    text-decoration: none;
-    cursor: pointer;
-}
-
 @media only screen and (min-width: 700px){
     .card-columns {
         -webkit-column-count: 2;

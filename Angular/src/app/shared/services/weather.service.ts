@@ -1,34 +1,58 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CityModel } from '../models/city.model';
-import { CityConditionsModel } from '../models/city-conditions.model';
-import { ForecastsModel } from '../models/forecasts.model';
+import { environment } from 'environments/environment';
+import { AutocompleteResponse } from '@models/accuweather-api/autocomplete-response.model';
+import { CurrentConditionsResponse } from '@models/accuweather-api/current-conditions-response.model';
+import { DailyForecastsResponse } from '@models/accuweather-api/daily-forecasts-response.model';
 
 @Injectable()
 export class WeatherService {
-    apiHttp: string = "https://dataservice.accuweather.com/"
-    autocompletePath: string = "locations/v1/cities/autocomplete";
-    cityConditionsPath: string = "currentconditions/v1/"
-    dailyForecastsPath: string = "forecasts/v1/daily/5day/"
-    private apiKey = "CkND2RH0il3H5d0AAdCqb1SH1M7aDnPe";
+    weatherApiKey = 'iBdZx4sgYriXxONY0AUxwf1vZYksKcVV';
+    weatherBaseApiUrl = 'https://dataservice.accuweather.com';
+    autocompleteApiPath = '/locations/v1/cities/autocomplete';
+    currentConditionsApiPath = '/currentconditions/v1/';
+    dailyForecastsApiPath = '/forecasts/v1/daily/5day/';
+    geoPositionSearchApiPath = '/locations/v1/cities/geoposition/search';
 
     constructor(private httpService: HttpClient) { }
 
-    public locationAutoComplete(search: string): Observable<CityModel[]> {
-        return this.httpService.get<CityModel[]>(
-            this.apiHttp + this.autocompletePath + "?apikey=" + this.apiKey + "&q=" + search
+    locationAutoComplete(search: string): Observable<AutocompleteResponse[]> {
+        return this.httpService.get<AutocompleteResponse[]>(
+            this.weatherBaseApiUrl + 
+            this.autocompleteApiPath + 
+            '?apikey=' + 
+            this.weatherApiKey + 
+            '&q=' + 
+            search
         );
-    }
-    public getCityConditions(locationKey: string): Observable<CityConditionsModel[]> {
-        return this.httpService.get<CityConditionsModel[]>(
-            this.apiHttp + this.cityConditionsPath + locationKey + "?apikey=" + this.apiKey
+    };
+
+    public getLocationByPosition(latitude: number, longitude: number): Observable<AutocompleteResponse[]> {
+        return this.httpService.get<AutocompleteResponse[]>(
+            '${environment.weatherBaseApiUrl}${environment.geoPositionSearchApiPath}'
+            + '?apikey=${environment.weatherApiKey}&q=${latitude},${longitude}'
         );
     }
 
-    public get5DaysOfDailyForecasts(locationKey: string): Observable<ForecastsModel> {
-        return this.httpService.get<ForecastsModel>(
-            this.apiHttp + this.dailyForecastsPath + locationKey + "?apikey=" + this.apiKey + "&metric=true"
+    getLocationCurrentConditions(locationKey: string): Observable<CurrentConditionsResponse[]> {
+        return this.httpService.get<CurrentConditionsResponse[]>(
+            this.weatherBaseApiUrl + 
+            this.currentConditionsApiPath + 
+            locationKey +
+            '?apikey=' + 
+            this.weatherApiKey
+        );
+    };
+
+    getLocation5DaysOfDailyForecasts(locationKey: string): Observable<DailyForecastsResponse> {
+        return this.httpService.get<DailyForecastsResponse>(
+            this.weatherBaseApiUrl + 
+            this.dailyForecastsApiPath + 
+            locationKey +
+            '?apikey=' + 
+            this.weatherApiKey +
+            '&metric=true'
         );
     }
 }

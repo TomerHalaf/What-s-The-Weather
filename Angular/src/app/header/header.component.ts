@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'herolo-header',
+    selector: 'wtw-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css']
 })
