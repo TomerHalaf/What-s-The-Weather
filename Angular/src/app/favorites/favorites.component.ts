@@ -5,8 +5,9 @@ import { Store } from '@ngrx/store';
 import { Favorite } from '@models/favorite.model';
 import { State } from '@store/index';
 import { selectFavorites } from '@store/selectors/favorites.selectors';
-import { addRemoveFavorite } from '@store/actions/favorites.actions';
 import { selectLocation } from '@store/selectors/locations.selectors';
+import { setSelectedLocationKey, updateLocationCurrentConditions } from '@store/actions/locations.actions';
+import { removeFavorite } from '@store/actions/favorites.actions';
 
 @Component({
     selector: 'wtw-favorites',
@@ -14,23 +15,21 @@ import { selectLocation } from '@store/selectors/locations.selectors';
     styleUrls: ['./favorites.component.css']
 })
 export class FavoritesComponent {
-    favorites$: Observable<Favorite[]>;
-    getLocation = (locationKey: string) => {
-        return this.store.pipe(selectLocation(locationKey));
-    };
+    favorites$: Observable<Favorite[]> = this.store.select(state => {
+        let favorites = selectFavorites(state);
+        favorites.forEach(favorite => this.store.dispatch(updateLocationCurrentConditions({ locationKey: favorite.locationKey })));
+        return favorites;
+    });
+    getLocation = (locationKey: string) => this.store.select(state => selectLocation(state, locationKey));
 
-    constructor(private store:Store<State>, private router: Router) {
-        this.favorites$ = this.store.select(selectFavorites);
-    };
+    constructor(private store: Store<State>, private router: Router) { };
 
     removeFavorite(locationKey: string): void {
-        let favorite: Favorite = { locationKey, description: "" };
-        this.store.dispatch(addRemoveFavorite({ favorite }));
+        this.store.dispatch(removeFavorite({ locationKey }));
     };
 
-    openInMain(favorite: Favorite): void {
-        this.router.navigate(['home'], {
-            state: { locationKey: favorite.locationKey }
-        });
+    openInMain(locationKey: string): void {
+        this.store.dispatch(setSelectedLocationKey({ locationKey }));
+        this.router.navigate(['home']);
     };
 }

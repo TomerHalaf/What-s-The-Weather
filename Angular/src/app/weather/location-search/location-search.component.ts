@@ -11,11 +11,16 @@ export class LocationSearchComponent {
     @Output() search = new EventEmitter<string>();
     @Output() selectedResult = new EventEmitter<AutocompleteResponse>();
     @Input() results: SearchResults;
-    newSearch: string = "Tel-Aviv";
-    showResults: boolean = false;
+    isHide: boolean = true;
 
     selectResult(result: AutocompleteResponse) {
-        this.newSearch = result.LocalizedName;
+        this.isHide = true;
         this.selectedResult.emit(result);
+    };
+
+    hideResults(isHide: boolean): void {
+        setTimeout(() => {
+            this.isHide = isHide;
+        }, 100);
     };
 }

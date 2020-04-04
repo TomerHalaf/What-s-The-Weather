@@ -8,12 +8,16 @@ const initialState: FavoritesState = {
 };
 
 export const favoritesReducer = createReducer(initialState,
-    on(favoritesActions.addRemoveFavorite, (state, action) => {
-        let favoriteIndex = state.favorites.findIndex(favorite => favorite.locationKey === action.favorite.locationKey);
-        let favorites = favoriteIndex > -1 ? 
-            state.favorites.filter(favorite => favorite.locationKey !== action.favorite.locationKey) : [ ...state.favorites, action.favorite ];
+    on(favoritesActions.addFavorite, (state, action) => {
+        if(state.favorites.some(favorite => favorite.locationKey === action.favorite.locationKey)) return ({ ...state });
+        let favorites = [ ...state.favorites, action.favorite ];
         HtmlApisHelper.setLocalStorage("favorites", favorites);
-        return ({ ...state, favorites })
+        return ({ ...state, favorites });
+    }),
+    on(favoritesActions.removeFavorite, (state, action) => {
+        let favorites = state.favorites.filter(favorite => favorite.locationKey !== action.locationKey);
+        HtmlApisHelper.setLocalStorage("favorites", favorites);
+        return ({ ...state, favorites });
     }),
     on(favoritesActions.updateFavorite, (state, action) => {
         let favorites = state.favorites.map(favorite => favorite.locationKey === action.favorite.locationKey ? action.favorite : favorite);

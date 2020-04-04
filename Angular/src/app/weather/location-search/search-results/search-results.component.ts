@@ -12,5 +12,5 @@ export class SearchResultsComponent {
 
     onSelect(result: AutocompleteResponse): void {
         this.selectedResult.emit(result);
-    }
+    };
 }

@@ -1,6 +1,6 @@
-<div *ngIf="searchForm" class="search-form-container text-main">
+<div *ngIf="searchForm" class="search-form-container text-main bg-light">
     <form [formGroup]='searchForm' novalidate>
-        <img class="search-bg" src="/assets/images/Search_icon-72a7cf.svg">
+        <img class="search-bg" src="./assets/images/Search_icon-72a7cf.svg">
         <input type="search" placeholder="Enter a location name" class="form-control border-0 text-center"
             id="searchInput" (keyup)="search.emit(searchForm.get('searchInput').value)" formControlName="searchInput" />
     </form>

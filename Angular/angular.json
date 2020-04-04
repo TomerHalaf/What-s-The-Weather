@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/wtw",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -20,10 +21,6 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets/images/logo.png",
-              "src/assets/images/favorites-colored.svg",
-              "src/assets/images/favorites-grey.svg",
-              "src/assets/images/Seach_icon-72a7cf.svg",
               "src/assets"
             ],
             "styles": [
@@ -37,6 +34,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -85,8 +88,7 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/assets/images"
+              "src/assets"
             ]
           }
         },

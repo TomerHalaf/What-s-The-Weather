@@ -8,7 +8,8 @@ import { DailyForecastsResponse } from '@models/accuweather-api/daily-forecasts-
 
 @Injectable()
 export class WeatherService {
-    weatherApiKey = 'iBdZx4sgYriXxONY0AUxwf1vZYksKcVV';
+    weatherApiKey = 'CkND2RH0il3H5d0AAdCqb1SH1M7aDnPe';
+    // weatherApiKey = 'iBdZx4sgYriXxONY0AUxwf1vZYksKcVV';
     weatherBaseApiUrl = 'https://dataservice.accuweather.com';
     autocompleteApiPath = '/locations/v1/cities/autocomplete';
     currentConditionsApiPath = '/currentconditions/v1/';

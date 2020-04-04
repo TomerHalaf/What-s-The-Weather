@@ -9,7 +9,7 @@ import { Location } from '@models/location.model';
 export class FavoriteCardComponent {
     @Input() location: Location;
     @Output() removeClicked = new EventEmitter<string>();
-    @Output() moreDetailsClicked = new EventEmitter<Location>();
+    @Output() moreDetailsClicked = new EventEmitter<string>();
 
     getWeatherIcon(): string {
         let weatherIcon = "https://developer.accuweather.com/sites/default/files/";

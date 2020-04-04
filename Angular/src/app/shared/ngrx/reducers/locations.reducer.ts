@@ -6,8 +6,7 @@ import { Location } from '@models/location.model';
 
 const initialState: LocationsState = {
     locations: HtmlApisHelper.getLocalStorage("locations") || [],
-    selectedLocationKey: undefined,
-    error: null
+    selectedLocationKey: undefined
 };
 
 export const locationsReducer = createReducer(initialState,
@@ -16,12 +15,6 @@ export const locationsReducer = createReducer(initialState,
             location.details.Key === action.location.details.Key) ? [ ...state.locations ] : [ ...state.locations, action.location ];
         HtmlApisHelper.setLocalStorage("locations", locations);
         return ({ ...state, locations })
-    }),
-    on(locationsActions.updateLocationSuccess, (state, action) => {
-        let locations = state.locations.map(location => 
-            location.details.Key === action.location.details.Key ? action.location : location);
-        HtmlApisHelper.setLocalStorage("locations", locations);
-        return ({ ...state, locations });
     }),
     on(locationsActions.updateLocationCurrentConditionsSuccess, (state, action) => {
         let locations = state.locations.map(location => 
@@ -41,7 +34,6 @@ export const locationsReducer = createReducer(initialState,
     }),
     on(locationsActions.clearSelectedLocation, (state, action) => 
         ({ ...state, selectedLocationKey: undefined })),
-    on(locationsActions.clearError, (state, action) => ({ ...state, error: null })),
-    on(locationsActions.setSelectLocation, (state, action) => ({ ...state, selectedLocationKey: action.locationKey })),
-    on(locationsActions.updateLocationFaild, (state, action) => ({ ...state, error: action.err }))
+    on(locationsActions.setSelectedLocationKey, (state, action) => 
+        ({ ...state, selectedLocationKey: action.locationKey }))
 );

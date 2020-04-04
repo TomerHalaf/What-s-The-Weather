@@ -5,12 +5,9 @@ import { CurrentConditionsResponse } from '@models/accuweather-api/current-condi
 
 export const addLocation = createAction('Add Location', props<{ location: Location }>());
 export const updateLocationCurrentConditions = createAction('Update Location Current Conditions', props<{ locationKey: string }>());
-export const updateLocationDailyForcasts = createAction('Update Location Daily Forcasts', props<{ locationKey: string }>());
-export const updateLocationSuccess = createAction('Update Location Success', props<{ location: Location }>());
-export const updateLocationDailyForcastsSuccess = createAction('Update Location Daily Forcast Success', props<{ locationKey: string, dailyForcasts: DailyForecastsResponse }>());
 export const updateLocationCurrentConditionsSuccess = createAction('Update Location Current Conditions Success', props<{ locationKey: string, currentConditions: CurrentConditionsResponse }>());
-export const updateLocationFaild = createAction('Update Location Faild', props<{ err: string }>());
-export const setSelectLocation = createAction("Select Location", props<{ locationKey: string }>());
+export const updateLocationDailyForcasts = createAction('Update Location Daily Forcasts', props<{ locationKey: string }>());
+export const updateLocationDailyForcastsSuccess = createAction('Update Location Daily Forcast Success', props<{ locationKey: string, dailyForcasts: DailyForecastsResponse }>());
+export const setSelectedLocationKey = createAction("Set Selected Location Key", props<{ locationKey: string }>());
 export const clearSelectedLocation = createAction("Clear Selected Locations");
 export const clearLocations = createAction("Clear Locations");
-export const clearError = createAction("Clear Error");

@@ -14,16 +14,14 @@ export class SearchFormComponent implements OnInit, OnChanges {
     constructor(private formbuilder: FormBuilder) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.searchInput && this.searchForm) {
-            this.searchForm.setValue({searchInput: this.searchInput});
-            this.search.emit(this.searchForm.get("searchInput").value);
+        if (changes.searchInput && changes.searchInput.currentValue && this.searchForm) {
+            this.searchForm.setValue({ searchInput: this.searchInput });
         };
-    }
+    };
 
     ngOnInit() {
         this.buildForm();
-        this.search.emit(this.searchForm.get("searchInput").value);
-    }
+    };
 
     private buildForm(): void {
         this.searchForm = this.formbuilder.group({

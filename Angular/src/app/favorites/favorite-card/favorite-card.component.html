@@ -1,9 +1,10 @@
 <div class="card-header bg-main">
-    <span (click)="removeClicked.emit(location?.details?.Key)" class="text-danger delete" title="Remove">X</span>
+    <span (click)="removeClicked.emit(location.details.Key)" class="text-danger delete" title="Remove">X</span>
     <img [src]="getWeatherIcon()">
 </div>
-<ul (click)="moreDetailsClicked.emit(location)" title="Show More Details" class="list-group list-group-flush p-0 m-0">
-    <li class="list-group-item bg-light">{{location?.details?.LocalizedName}}&deg;</li>
-    <li class="list-group-item bg-light">{{location?.currentConditions?.Temperature?.Metric?.Value}}&deg;</li>
-    <li class="list-group-item bg-light">{{location?.currentConditions?.WeatherText}}</li>
+<ul (click)="moreDetailsClicked.emit(location.details.Key)" title="Show More Details" 
+    class="list-group list-group-flush p-0 m-0">
+    <li class="list-group-item bg-light">{{location.details.LocalizedName}}&deg;</li>
+    <li class="list-group-item bg-light">{{location.currentConditions.Temperature.Metric.Value}}&deg;</li>
+    <li class="list-group-item bg-light">{{location.currentConditions.WeatherText}}</li>
 </ul>

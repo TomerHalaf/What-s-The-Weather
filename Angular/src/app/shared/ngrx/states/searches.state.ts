@@ -3,6 +3,5 @@ import { AutocompleteResponse } from '@models/accuweather-api/autocomplete-respo
 
 export interface SearchesState {
     searches: SearchResults[];
-    selectedResult: AutocompleteResponse;
-    error: string|null;
+    currentSearchQuery: string;
 }

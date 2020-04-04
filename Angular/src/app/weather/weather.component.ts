@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { State } from '@store/index';
 import * as searchSelectors from '@store/selectors/search.selectors';
@@ -19,35 +18,30 @@ import { Location } from '@models/location.model';
     styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent {
-    searchQuery: string;
-    isFavorite$ = this.store.select(state => favoritesSelectors.isFavorite(state, state.locations.selectedLocationKey));
-    searchResults$ = this.store.select(state => searchSelectors.selectSearchResults(state, this.searchQuery));
-    location$: Observable<Location>;
+    isFavorite$ = this.store.select(favoritesSelectors.isFavorite);
+    searchResults$ = this.store.select(searchSelectors.selectSearchResults);
+    location$: Observable<Location> = this.store.select(locationsSelectors.selectLocation);
 
-    constructor(private router: Router, private store: Store<State>) {
-        this.location$ = this.store.pipe(locationsSelectors.selectLocation());
-        if (this.router.getCurrentNavigation().extras.state && this.router.getCurrentNavigation().extras.state.locationDetails) {
-            let locationDetails = this.router.getCurrentNavigation().extras.state.locationDetails.LocalizedName;
-            this.searchQuery = locationDetails.LocalizedName;
-            this.selectResult(locationDetails);
-        };
-    };
+    constructor(private store: Store<State>) { };
 
-    selectResult(result: AutocompleteResponse): void {
-        if (result) {
-            this.store.dispatch(locationsActions.setSelectLocation({ locationKey: result.Key }));
-            this.store.dispatch(locationsActions.updateLocationCurrentConditions({ locationKey: result.Key }));
-            this.store.dispatch(locationsActions.updateLocationDailyForcasts({ locationKey: result.Key }));
-        };
+    selectLocation(location: AutocompleteResponse): void {
+        this.store.dispatch(locationsActions.setSelectedLocationKey({ locationKey: location.Key }));
+        this.store.dispatch(locationsActions.updateLocationCurrentConditions({ locationKey: location.Key }));
+        this.store.dispatch(locationsActions.updateLocationDailyForcasts({ locationKey: location.Key }));
+        this.search(location.LocalizedName);
     };
 
     search(searchQuery: string): void {
-        this.searchQuery = searchQuery;
+        this.store.dispatch(searchActions.setCurrentSearchQuery({ searchQuery }));
         this.store.dispatch(searchActions.search({ searchQuery }));
     };
 
-    addRemoveFavorite(location: AutocompleteResponse): void {
+    addFavorite(location: AutocompleteResponse): void {
         let favorite: Favorite = { locationKey: location.Key, description: location.LocalizedName };
-        this.store.dispatch(favoritesActions.addRemoveFavorite({ favorite }));
+        this.store.dispatch(favoritesActions.addFavorite({ favorite }));
+    };
+
+    removeFavorite(locationKey: string): void {
+        this.store.dispatch(favoritesActions.removeFavorite({ locationKey }));
     };
 }

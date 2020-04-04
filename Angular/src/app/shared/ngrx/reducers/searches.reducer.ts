@@ -5,20 +5,17 @@ import * as searchActions from '@store/actions/searches.actions';
 
 const initialState: SearchesState = {
     searches: HtmlApisHelper.getLocalStorage("searches") || [],
-    selectedResult: undefined,
-    error: null
+    currentSearchQuery: undefined
 };
 
 export const searchesReducer = createReducer(initialState,
     on(searchActions.searchSuccess, (state, action) => {
-        let searches = state.searches.filter(search => search.searchQuery !== action.result.searchQuery);
-        searches.push(action.result);
+        let searches = state.searches.filter(search => search.searchQuery !== action.results.searchQuery);
+        searches.push(action.results);
         searches.sort((a , b) => a.searchQuery.localeCompare(b.searchQuery));
         HtmlApisHelper.setLocalStorage("searches", searches);
-        return ({ ...state, searches, error: null });
+        return ({ ...state, searches });
     }),
-    on(searchActions.searchFaild, (state, action) => ({ ...state, error: action.err })),
-    on(searchActions.setSelectedResult, (state, action) => ({ ...state, selectedResult: action.result })),
-    on(searchActions.clearSelectedResult, (state, action) => ({ ...state, selectedResult: undefined })),
-    on(searchActions.clearError, (state, action) => ({ ...state, error: null }))
+    on(searchActions.setCurrentSearchQuery, (state, action) => ({ ...state, currentSearchQuery: action.searchQuery })),
+    on(searchActions.clearCurrentSearchQuery, (state, action) => ({ ...state, currentSearchQuery: undefined }))
 );

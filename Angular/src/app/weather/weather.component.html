@@ -2,8 +2,8 @@
     <!-- Search for location -->
     <div class="row">
         <div class="col-12 col-md-4 order-1 order-md-2">
-            <wtw-location-search 
-                (search)="search($event)" (selectedResult)="selectResult($event)" [results]="searchResults$ | async">
+            <wtw-location-search
+                (search)="search($event)" (selectedResult)="selectLocation($event)" [results]="searchResults$ | async">
             </wtw-location-search>
             <br>
             <h1 *ngIf="(location$ | async)?.details?.LocalizedName as name" class="d-none d-md-block text-center pt-4 text-main">{{name}}</h1>
@@ -17,7 +17,8 @@
         </div>
         <div class="col-6 col-md-4 pt-4 pr-md-4 p-md-1 order-3">
             <wtw-add-to-favorites *ngIf="(location$ | async)?.details as locationDetails"
-                [isFavorite]="(isFavorite$ | async)" (buttonClicked)="addRemoveFavorite(locationDetails)">
+                [isFavorite]="(isFavorite$ | async)" (removeClicked)="removeFavorite(locationDetails.Key)"
+                (addClicked)="addFavorite(locationDetails)">
             </wtw-add-to-favorites>
         </div>
     </div>

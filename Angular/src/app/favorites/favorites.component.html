@@ -1,7 +1,9 @@
 <div class="container-fluid m-0 p-0 mx-auto">
     <div *ngIf="(favorites$ | async) as favorites" class="card-columns pt-4 mt-4 text-center">
         <div *ngFor="let f of favorites" class="card border-primary text-main">
-            <wtw-favorite-card *ngIf="(getLocation(f.locationKey) | async) as location" [location]="location"></wtw-favorite-card>
+            <wtw-favorite-card *ngIf="(getLocation(f.locationKey) | async) as location" 
+                [location]="location" (removeClicked)="removeFavorite($event)" (moreDetailsClicked)="openInMain($event)">
+            </wtw-favorite-card>
         </div>
     </div>
 </div>

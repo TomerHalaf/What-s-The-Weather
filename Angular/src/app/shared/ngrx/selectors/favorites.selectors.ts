@@ -1,10 +1,13 @@
 import { State } from '@store/index'
-import { createSelector } from '@ngrx/store'
+import { selectSelectedLocationKey } from './locations.selectors';
 import { Favorite } from '@models/favorite.model';
 
-export const selectFavorites = (state: State) => state.favorites.favorites;
+export function selectFavorites(state: State): Favorite[] {
+    return state.favorites.favorites;
+};
 
-export const isFavorite = createSelector(
-    selectFavorites,
-    (favorites: Favorite[], locationKey: string) => favorites.some(favorite => favorite.locationKey === locationKey)
-);
+export function isFavorite(state: State, locationKey?: string): boolean{
+    let favorites = selectFavorites(state);
+    let key = locationKey ? locationKey : selectSelectedLocationKey(state);
+    return favorites.some(favorite => favorite.locationKey === key);
+};

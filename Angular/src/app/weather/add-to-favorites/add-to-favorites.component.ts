@@ -7,7 +7,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AddToFavoritesComponent {
     @Input() isFavorite: boolean;
-    @Output() buttonClicked = new EventEmitter<void>();
+    @Output() removeClicked = new EventEmitter<void>();
+    @Output() addClicked = new EventEmitter<void>();
 
     getFavoriteIcon(): string {
         if (this.isFavorite) {
@@ -16,26 +17,7 @@ export class AddToFavoritesComponent {
         return './assets/images/favorites-grey.svg';
     };
 
-    // public favoriteClicked(): void {
-        // let index = this.getFavoriteIndex();
-        // index > -1 ? this.addToFavorites() : this.removeFromFavorites(index);
-        // if (HtmlApisHelper.isLocalStorage) {
-        //     localStorage.setItem('favorites', JSON.stringify(this.favorites));
-        // }
-        // this.setFavoritesIconSrc();
-    // }
-    // private addToFavorites(): void {
-    //     // this.s
-    //     // this.favorites.push(new Favorite(this.locationKey, this.cityName, new CityConditionsModel()));
-    // }
-    // private removeFromFavorites(index: number): void {
-    //     this.favorites.splice(index, 1);
-    // }
-    // private getFavoriteIndex(): number {
-    //     return this.favorites ? this.favorites.findIndex(favorite => favorite.id == this.locationKey) : -1;
-    // }
-    // private setFavoritesIconSrc() {
-    //     this.getFavoriteIndex() > -1 ? this.favoritesIconSrc = './assets/images/favorites-colored.svg' :
-    //         this.favoritesIconSrc = './assets/images/favorites-grey.svg';
-    // }
+    buttonClicked(): void {
+        this.isFavorite ? this.removeClicked.emit() : this.addClicked.emit();
+    }
 }
